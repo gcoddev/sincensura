@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Contenido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerContenido extends Controller
 {
     public function index()
     {
-        $contenido = Contenido::where('estado', '=', 1)->orderBy('id_contenido', 'desc')->get();
+        $contenido = Contenido::where('estado', '<>', 2)->orderBy('id_contenido', 'desc')->get();
 
         return view('cms.contenido.index', compact('contenido'));
     }
@@ -26,10 +27,11 @@ class ControllerContenido extends Controller
 
         if (!$id) {
             $validated = $request->validate([
-                'titulo' => 'required',
+                'titulo' => 'required|max:50',
+                'descripcion' => 'max:100',
                 'imagen' => 'required',
-                'descripcion' => 'required',
                 'id_categoria' => 'required',
+                'contenido_text' => ['required', 'not_in:<div><br></div>'],
             ]);
 
             $nuevaPublicacion = new Contenido;
@@ -40,17 +42,20 @@ class ControllerContenido extends Controller
             $file->storeAs('public/publicaciones', $name);
             $nuevaPublicacion->imagen = $name;
 
-            $nuevaPublicacion->descripcion = $request->input('descripcion');
             $nuevaPublicacion->id_categoria = $request->input('id_categoria');
-            $nuevaPublicacion->id_usuario = 1;
+            $nuevaPublicacion->descripcion = $request->input('descripcion');
+            $nuevaPublicacion->contenido = $request->input('contenido_text');
+            $nuevaPublicacion->autor = $request->input('autor') != '' ? $request->input('autor') : Auth::user()->nombres . ' ' . Auth::user()->apellidos;
+            $nuevaPublicacion->fuente = $request->input('fuente') != '' ? $request->input('fuente') : null;
+            $nuevaPublicacion->id_usuario = Auth::user()->id;
             $nuevaPublicacion->save();
 
             return redirect()->route('contenido')->with('message', 'Publicacion creada correctamente.');
         } else {
             $validated = $request->validate([
                 'titulo' => 'required',
-                'descripcion' => 'required',
                 'id_categoria' => 'required',
+                'contenido_text' => 'required',
             ]);
             $publicacion = Contenido::where('id_contenido', '=', $id)->first();
 

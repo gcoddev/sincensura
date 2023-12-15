@@ -146,7 +146,7 @@
                                             </li>
                                         @endforeach
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('login') }}">acceder </a>
+                                            <a class="nav-link text-danger" href="{{ route('login') }}">acceder </a>
                                         </li>
                                     </ul>
                                 </div> <!-- navbar collapse -->

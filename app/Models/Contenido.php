@@ -14,11 +14,14 @@ class Contenido extends Model
         'titulo',
         'imagen',
         'descripcion',
+        'contenido',
         'estado',
         'creado_el',
         'modificado_el',
         'id_usuario',
         'id_categoria',
+        'autor',
+        'fuente',
     ];
     const CREATED_AT = "creado_el";
     const UPDATED_AT = "modificado_el";

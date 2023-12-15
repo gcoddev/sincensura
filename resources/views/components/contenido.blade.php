@@ -23,6 +23,9 @@
                                     </div>
                                 </div>
                                 <h5 class="binduz-er-title"><a href="#">{{ strtoupper($pub->titulo) }}</a></h5>
+                                @if ($pub->descripcion != null)
+                                    <p>{{ $pub->descripcion }}</p>
+                                @endif
                                 @if ($pub->autor != null)
                                     <p><b>Por: </b>{{ $pub->autor }}</p>
                                 @endif
@@ -370,7 +373,8 @@
                                             </div>
                                             <div class="binduz-er-content">
                                                 <span><i class="fal fa-calendar-alt"></i> {{ $pub->creado_el }}</span>
-                                                <h4 class="binduz-er-title"><a href="#">{{ strtoupper($pub->titulo) }}</a>
+                                                <h4 class="binduz-er-title"><a
+                                                        href="#">{{ strtoupper($pub->titulo) }}</a>
                                                 </h4>
                                             </div>
                                         </div>
@@ -389,7 +393,8 @@
                                             </div>
                                             <div class="binduz-er-content">
                                                 <span><i class="fal fa-calendar-alt"></i> {{ $pub->creado_el }}</span>
-                                                <h4 class="binduz-er-title"><a href="#">{{ strtoupper($pub->titulo) }}</a>
+                                                <h4 class="binduz-er-title"><a
+                                                        href="#">{{ strtoupper($pub->titulo) }}</a>
                                                 </h4>
                                             </div>
                                         </div>
@@ -458,7 +463,8 @@
                                                 <div class="binduz-er-content">
                                                     <div class="binduz-er-meta-item">
                                                         <div class="binduz-er-meta-categories">
-                                                            <a href="#">{{ strtoupper($pubs->categoria->nombre) }}</a>
+                                                            <a
+                                                                href="#">{{ strtoupper($pubs->categoria->nombre) }}</a>
                                                         </div>
                                                         <div class="binduz-er-meta-date">
                                                             <span><i
@@ -476,11 +482,11 @@
                         </div>
 
                         @foreach ($categorias as $item)
-                            @foreach ($publicacionesAll as $pub)
-                                @if ($item->id_categoria == $pub->id_categoria)
-                                    <div class="tab-pane fade" id="tab_item_{{ $item->id_categoria }}"
-                                        role="tabpanel" aria-labelledby="tab_{{ $item->id_categoria }}">
-                                        <div class="row">
+                            <div class="tab-pane fade" id="tab_item_{{ $item->id_categoria }}" role="tabpanel"
+                                aria-labelledby="tab_{{ $item->id_categoria }}">
+                                <div class="row">
+                                    @foreach ($publicacionesAll as $pub)
+                                        @if ($item->id_categoria == $pub->id_categoria)
                                             <div class=" col-lg-3 col-md-6">
                                                 <div class="binduz-er-video-post binduz-er-recently-viewed-item">
                                                     <div class="binduz-er-latest-news-item">
@@ -501,15 +507,16 @@
                                                                 </div>
                                                             </div>
                                                             <h5 class="binduz-er-title"><a
-                                                                    href="#">{{ strtoupper($pub->titulo) }}</a></h5>
+                                                                    href="#">{{ strtoupper($pub->titulo) }}</a>
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                 </div>

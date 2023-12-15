@@ -34,6 +34,8 @@
                                 <th>Imagen</th>
                                 <th>Descripcion</th>
                                 <th>Categoria</th>
+                                <th>Autor</th>
+                                <th>Fuente</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -44,17 +46,20 @@
                                     <td>{{ $item->id_contenido }}</td>
                                     <td>{{ $item->titulo }}</td>
                                     <td align="center"><img src="{{ asset('storage/publicaciones/' . $item->imagen) }}"
-                                            alt="imagen" width="150px"></td>
-                                    <td>{!! $item->descripcion !!}</td>
-                                    <td>{{ $item->categoria->nombre }}</td>
-                                    <td>
-                                        @if ($item->estado == 1)
+                                        alt="imagen" width="150px"></td>
+                                        <td>{{ $item->descripcion ? $item->descripcion : '-' }}</td>
+                                        <td>{{ $item->categoria->nombre }}</td>
+                                        <td>{{ $item->autor ? $item->autor : '-' }}</td>
+                                        <td>{{ $item->fuente ? $item->fuente : '-' }}</td>
+                                        <td>
+                                            @if ($item->estado == 1)
                                             <span class="badge bg-success">ACTIVO</span>
                                         @else
                                             <span class="badge bg-danger">INACTIVO</span>
                                         @endif
                                     </td>
                                     <td>
+                                        <button class="btn btn-sm btn-primary">Ver</button>
                                         <button class="btn btn-sm btn-warning">Editar</button>
                                         <button class="btn btn-sm btn-danger" onclick="eliminar()">Eliminar</button>
                                     </td>

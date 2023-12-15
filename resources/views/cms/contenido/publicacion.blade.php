@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-12 col-lg-6">
                                 <div class="form-group pb-3">
-                                    <label for="titulo" class="form-label">Titulo de la publicación</label>
+                                    <label for="titulo" class="form-label">Titulo de la publicación <span style="color:red;">*</span></label>
                                     <div class="position-relative input-icon">
                                         <input type="text" class="form-control" id="titulo" placeholder="Titulo"
                                             name="titulo" value="{{ old('titulo') }}">
@@ -36,7 +36,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group pb-3">
-                                    <label for="imagen" class="form-label">Imagen de la noticia</label>
+                                    <label for="imagen" class="form-label">Imagen de la noticia <span style="color:red;">*</span></label>
                                     <div class="position-relative input-icon">
                                         <input type="file" class="form-control ps-5"
                                             accept="image/jpg,image/png,image/jpeg" id="imagen" name="imagen"
@@ -50,7 +50,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group pb-3">
-                                    <label for="id_categoria" class="form-label">Categoria</label>
+                                    <label for="id_categoria" class="form-label">Categoria <span style="color:red;">*</span></label>
                                     <div class="position-relative input-icon">
                                         <select id="id_categoria" class="form-select ps-5" name="id_categoria">
                                             <option value="">[ Seleccionar categoria ]</option>
@@ -70,10 +70,49 @@
                                     @enderror
                                 </div>
                                 <div class="form-group pb-3">
-                                    <label for="descripcion" class="form-label">Descripcion de la publicación</label>
-                                    <textarea rows="5" class="form-control" name="descripcion" id="descripcion">{{ old('descripcion') }}</textarea>
+                                    <label for="descripcion" class="form-label">Descripcion</label>
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" id="descripcion" placeholder="Descripcion"
+                                            name="descripcion" value="{{ old('descripcion') }}">
+                                        <span class="position-absolute top-50 translate-middle-y">
+                                            <i class="material-icons-outlined fs-5">description</i>
+                                        </span>
+                                    </div>
+                                    @error('descripcion')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
-                                @error('descripcion')
+                                <div class="form-group pb-3">
+                                    <label for="autor" class="form-label">Autor de la información</label>
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" id="autor" placeholder="Autor"
+                                            name="autor" value="{{ old('autor') }}">
+                                        <span class="position-absolute top-50 translate-middle-y">
+                                            <i class="material-icons-outlined fs-5">person</i>
+                                        </span>
+                                    </div>
+                                    @error('autor')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group pb-3">
+                                    <label for="fuente" class="form-label">Fuente de la información</label>
+                                    <div class="position-relative input-icon">
+                                        <input type="text" class="form-control" id="fuente" placeholder="Fuente"
+                                            name="fuente" value="{{ old('fuente') }}">
+                                        <span class="position-absolute top-50 translate-middle-y">
+                                            <i class="material-icons-outlined fs-5">link</i>
+                                        </span>
+                                    </div>
+                                    @error('fuente')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group pb-3">
+                                    <label for="contenido_text" class="form-label">Contenido de la publicación <span style="color:red;">*</span></label>
+                                    <textarea rows="5" class="form-control" name="contenido_text" id="contenido_text">{{ old('contenido_text') }}</textarea>
+                                </div>
+                                @error('contenido_text')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -107,7 +146,7 @@
             };
         }
 
-        $('#descripcion').richText({
+        $('#contenido_text').richText({
 
             // text formatting
             bold: true,
