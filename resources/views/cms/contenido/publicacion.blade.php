@@ -2,13 +2,13 @@
 @section('contenido_cms')
     <div class="main-content">
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Components</div>
+            <div class="breadcrumb-title pe-3">Menu</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Form Layouts</li>
+                        <li class="breadcrumb-item active" aria-current="page">PUBLICACIÓN</li>
                     </ol>
                 </nav>
             </div>
@@ -20,13 +20,16 @@
                     <h5 class="mb-4">Nueva publicación</h5>
                     <form class="row g-3" action="{{ route('publicacion') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="id_contenido" value="{{ isset($publicacion->id_contenido) ? $publicacion->id_contenido : 0 }}" readonly>
                         <div class="row">
                             <div class="col-12 col-lg-6">
                                 <div class="form-group pb-3">
-                                    <label for="titulo" class="form-label">Titulo de la publicación <span style="color:red;">*</span></label>
+                                    <label for="titulo" class="form-label">Titulo de la publicación <span
+                                            style="color:red;">*</span></label>
                                     <div class="position-relative input-icon">
                                         <input type="text" class="form-control" id="titulo" placeholder="Titulo"
-                                            name="titulo" value="{{ old('titulo') }}">
+                                            name="titulo"
+                                            value="{{ isset($publicacion->titulo) ? $publicacion->titulo : old('titulo') }}">
                                         <span class="position-absolute top-50 translate-middle-y">
                                             <i class="material-icons-outlined fs-5">title</i>
                                         </span>
@@ -36,7 +39,8 @@
                                     @enderror
                                 </div>
                                 <div class="form-group pb-3">
-                                    <label for="imagen" class="form-label">Imagen de la noticia <span style="color:red;">*</span></label>
+                                    <label for="imagen" class="form-label">Imagen de la noticia <span
+                                            style="color:red;">*</span></label>
                                     <div class="position-relative input-icon">
                                         <input type="file" class="form-control ps-5"
                                             accept="image/jpg,image/png,image/jpeg" id="imagen" name="imagen"
@@ -50,13 +54,14 @@
                                     @enderror
                                 </div>
                                 <div class="form-group pb-3">
-                                    <label for="id_categoria" class="form-label">Categoria <span style="color:red;">*</span></label>
+                                    <label for="id_categoria" class="form-label">Categoria <span
+                                            style="color:red;">*</span></label>
                                     <div class="position-relative input-icon">
                                         <select id="id_categoria" class="form-select ps-5" name="id_categoria">
                                             <option value="">[ Seleccionar categoria ]</option>
                                             @foreach ($categorias as $item)
                                                 <option value="{{ $item->id_categoria }}"
-                                                    {{ old('id_categoria') == $item->id_categoria ? 'selected' : '' }}>
+                                                    {{ (isset($publicacion->id_categoria) ? $publicacion->id_categoria : old('id_categoria') == $item->id_categoria) ? 'selected' : '' }}>
                                                     {{ $item->nombre }}
                                                 </option>
                                             @endforeach
@@ -72,8 +77,9 @@
                                 <div class="form-group pb-3">
                                     <label for="descripcion" class="form-label">Descripcion</label>
                                     <div class="position-relative input-icon">
-                                        <input type="text" class="form-control" id="descripcion" placeholder="Descripcion"
-                                            name="descripcion" value="{{ old('descripcion') }}">
+                                        <input type="text" class="form-control" id="descripcion"
+                                            placeholder="Descripcion" name="descripcion"
+                                            value="{{ isset($publicacion->descripcion) ? $publicacion->descripcion : old('descripcion') }}">
                                         <span class="position-absolute top-50 translate-middle-y">
                                             <i class="material-icons-outlined fs-5">description</i>
                                         </span>
@@ -86,7 +92,8 @@
                                     <label for="autor" class="form-label">Autor de la información</label>
                                     <div class="position-relative input-icon">
                                         <input type="text" class="form-control" id="autor" placeholder="Autor"
-                                            name="autor" value="{{ old('autor') }}">
+                                            name="autor"
+                                            value="{{ isset($publicacion->autor) ? $publicacion->autor : old('autor') }}">
                                         <span class="position-absolute top-50 translate-middle-y">
                                             <i class="material-icons-outlined fs-5">person</i>
                                         </span>
@@ -99,7 +106,8 @@
                                     <label for="fuente" class="form-label">Fuente de la información</label>
                                     <div class="position-relative input-icon">
                                         <input type="text" class="form-control" id="fuente" placeholder="Fuente"
-                                            name="fuente" value="{{ old('fuente') }}">
+                                            name="fuente"
+                                            value="{{ isset($publicacion->fuente) ? $publicacion->fuente : old('fuente') }}">
                                         <span class="position-absolute top-50 translate-middle-y">
                                             <i class="material-icons-outlined fs-5">link</i>
                                         </span>
@@ -109,23 +117,24 @@
                                     @enderror
                                 </div>
                                 <div class="form-group pb-3">
-                                    <label for="contenido_text" class="form-label">Contenido de la publicación <span style="color:red;">*</span></label>
-                                    <textarea rows="5" class="form-control" name="contenido_text" id="contenido_text">{{ old('contenido_text') }}</textarea>
+                                    <label for="contenido_text" class="form-label">Contenido de la publicación <span
+                                            style="color:red;">*</span></label>
+                                    <textarea rows="5" class="form-control" name="contenido_text" id="contenido_text">{{ isset($publicacion->contenido) ? $publicacion->contenido : old('contenido_text') }}</textarea>
                                 </div>
                                 @error('contenido_text')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="col-12 col-lg-6 d-flex justify-content-center">
-                                <img src="{{ asset('placeholder.jpg') }}" class="w-100 h-100" alt=""
-                                    id="preview_imagen">
+                                <img src="{{ isset($publicacion->imagen) ? asset('storage/publicaciones/' . $publicacion->imagen) : asset('placeholder.jpg') }}"
+                                    class="w-100 h-100" alt="" id="preview_imagen">
                             </div>
                         </div>
                         <div class="col-12 form-group pb-3">
                             <div class="d-md-flex d-grid align-items-center gap-3">
                                 <button type="submit" class="btn btn-success px-4">Guardar</button>
                                 <button type="reset" class="btn btn-light px-4">Restablecer</button>
-                                <a href="{{ route('contenido') }}" class="btn btn-secondary px-4">Cancelar</a>
+                                <a href="{{ route('contenidos') }}" class="btn btn-secondary px-4">Volver</a>
                             </div>
                         </div>
                     </form>

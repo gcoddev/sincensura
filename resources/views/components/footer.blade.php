@@ -20,41 +20,16 @@
                     <div class=" col-lg-5">
                         <div class="binduz-er-footer-gallery ml-50">
                             <div class="binduz-er-footer-title">
-                                <h4 class="binduz-er-title">Galeria</h4>
+                                <h4 class="binduz-er-title">Imagenes recientes</h4>
                             </div>
-                            <div class="binduz-er-footer-gallery-widget d-flex">
-                                <div class="binduz-er-item">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/footer-gallery-1.jpg') }}" alt="">
-                                    </a>
-                                </div>
-                                <div class="binduz-er-item">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/footer-gallery-2.jpg') }}" alt="">
-                                    </a>
-                                </div>
-                                <div class="binduz-er-item">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/footer-gallery-3.jpg') }}" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="binduz-er-footer-gallery-widget d-flex">
-                                <div class="binduz-er-item">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/footer-gallery-4.jpg') }}" alt="">
-                                    </a>
-                                </div>
-                                <div class="binduz-er-item">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/footer-gallery-5.jpg') }}" alt="">
-                                    </a>
-                                </div>
-                                <div class="binduz-er-item">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/footer-gallery-6.jpg') }}" alt="">
-                                    </a>
-                                </div>
+                            <div class="binduz-er-footer-gallery-widget row">
+                                @foreach ($imagenes as $img)
+                                    <div class="col-3 binduz-er-item">
+                                        <a href="{{ route('noticia', $img->id_contenido) }}" class="w-100 h-100">
+                                            <img src="{{ asset('storage/galeria/' . $img->imagen) }}" alt="" class="w-100 h-100">
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

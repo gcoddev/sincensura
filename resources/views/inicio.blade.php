@@ -33,13 +33,26 @@
     <!--====== Style css ======-->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+    <style>
+        .input-focus:focus {
+            border: 2px solid #E74D58 !important;
+        }
+
+        .leer-mas {
+            color: #E74D58;
+        }
+
+        .leer-mas:hover {
+            color: #000;
+        }
+    </style>
 
 </head>
 
 <body class="gray-bg bg-2">
     @include('components.header')
 
-    @include('components.contenido')
+    @yield('contenido_home')
 
     @include('components.footer')
 

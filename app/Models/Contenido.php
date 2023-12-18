@@ -22,6 +22,7 @@ class Contenido extends Model
         'id_categoria',
         'autor',
         'fuente',
+        'vistas',
     ];
     const CREATED_AT = "creado_el";
     const UPDATED_AT = "modificado_el";
@@ -29,6 +30,10 @@ class Contenido extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'id_categoria', 'id_categoria');
+    }
+    public function comentario($id)
+    {
+        return Comentario::where('id_contenido', '=', $id)->get();
     }
 
 }

@@ -21,11 +21,11 @@
                             </li>
                             @foreach ($categorias as $item)
                                 <li class="binduz-er-news-menu-item-has-children">
-                                    <a href="#">{{ $item->nombre }} </a>
+                                    <a href="{{ route('categoriaN', $item->id_categoria) }}">{{ $item->nombre }} </a>
                                 </li>
                             @endforeach
                             <li class="binduz-er-news-menu-item-has-children">
-                                <a href="{{ route('login') }}">Acceder </a>
+                                <a href="{{ route('login') }}" target="_blank">Acceder </a>
                             </li>
                         </ul>
                     </div>
@@ -39,7 +39,7 @@
 
 <!--====== SEARCH PART START ======-->
 
-<div class="binduz-er-news-search-box">
+{{-- <div class="binduz-er-news-search-box">
     <div class="binduz-er-news-search-header">
         <div class=" container mt-60">
             <div class="row">
@@ -54,6 +54,7 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </div> <!-- search header -->
+
     <div class="binduz-er-news-search-body">
         <div class=" container">
             <div class="row">
@@ -65,10 +66,10 @@
                         </form>
                     </div>
                 </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </div> <!-- search body -->
-</div>
+            </div>
+        </div>
+    </div>
+</div> --}}
 
 <!--====== SEARCH PART ENDS ======-->
 
@@ -82,8 +83,8 @@
                     <div class="binduz-er-select-item">
                         <select id="idioma">
                             <option value="es" selected>Español</option>
-                            <option value="en">English</option>
-                            <option value="ay">Aymara</option>
+                            {{-- <option value="en">English</option>
+                            <option value="ay">Aymara</option> --}}
                         </select>
                     </div>
                 </div>
@@ -131,25 +132,28 @@
                 <div class=" col-lg-12">
                     <div class="binduz-er-header-meddle-bar d-flex justify-content-between">
                         <div class="binduz-er-logo">
-                            <a href="#"><img src="{{ asset('logo.jpeg') }}" alt=""></a>
+                            <a href="{{ route('inicio') }}"><img src="{{ asset('logo.jpeg') }}" alt=""></a>
                         </div>
                         <div class="navigation">
                             <nav class="navbar navbar-expand-lg">
                                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                     <ul class="navbar-nav mr-auto">
-                                        <li class="nav-item active">
-                                            <a class="nav-link" href="index.html">Inicio</a>
+                                        <li class="nav-item {{ $activo == 0 ? 'active' : '' }}">
+                                            <a class="nav-link" href="{{ route('inicio') }}">Inicio</a>
                                         </li>
                                         @foreach ($categorias as $item)
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">{{ $item->nombre }} </a>
+                                            <li class="nav-item {{ $activo == $item->id_categoria ? 'active' : '' }}">
+                                                <a class="nav-link"
+                                                    href="{{ route('categoriaN', $item->id_categoria) }}">{{ $item->nombre }}
+                                                </a>
                                             </li>
                                         @endforeach
                                         <li class="nav-item">
-                                            <a class="nav-link text-danger" href="{{ route('login') }}">acceder </a>
+                                            <a class="nav-link text-danger" href="{{ route('login') }}"
+                                                target="_blank">acceder </a>
                                         </li>
                                     </ul>
-                                </div> <!-- navbar collapse -->
+                                </div>
                                 <div class="binduz-er-navbar-btn d-flex align-items-center">
                                     <div class="binduz-er-search-btn d-none d-sm-block">
                                         <a class="binduz-er-news-search-open" href="#"><i

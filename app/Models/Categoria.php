@@ -15,4 +15,11 @@ class Categoria extends Model
         'descripcion',
         'estado',
     ];
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
+
+    public function publicaciones($id)
+    {
+        return $publicaciones = Contenido::where('estado', '=', 1)->where('id_categoria', '=', $id)->get();
+    }
 }
