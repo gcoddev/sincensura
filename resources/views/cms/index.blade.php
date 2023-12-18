@@ -105,6 +105,58 @@
                 aaSorting: []
             });
         });
+        $(document).ready(function() {
+            $('#table-galeria').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay imagenes aun.",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ imagenes.",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ imagenes)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ imagenes",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin imagenes encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                // scrollX: true,
+                aaSorting: []
+            });
+        });
+        $(document).ready(function() {
+            $('#table-comentarios').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay comentarios aun.",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ comentarios.",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ comebtarios)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ comentarios",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin comentarios encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                // scrollX: true,
+                aaSorting: []
+            });
+        });
     </script>
     <script src="{{ asset('assets_cms/assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets_cms/assets/js/main.js') }}"></script>

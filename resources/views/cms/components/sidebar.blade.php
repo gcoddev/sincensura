@@ -21,6 +21,16 @@
                     <div class="menu-title">Inicio</div>
                 </a>
             </li>
+            @if (Auth::user()->id_rol == 1)
+                <li class="menu-label">Administración</li>
+                <li>
+                    <a href="{{ route('usuarios') }}">
+                        <div class="parent-icon"><i class="material-icons-outlined">person</i>
+                        </div>
+                        <div class="menu-title">Usuarios</div>
+                    </a>
+                </li>
+            @endif
             <li class="menu-label">Menu</li>
             <li>
                 <a href="{{ route('categoria') }}">
@@ -30,7 +40,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('contenido') }}">
+                <a href="{{ route('contenidos') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">toc</i>
                     </div>
                     <div class="menu-title">Contenido</div>

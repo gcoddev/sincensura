@@ -1,4 +1,5 @@
 @extends('cms.wrapper')
+
 @section('contenido_cms')
     <div class="main-content">
         <!--breadcrumb-->

@@ -8,17 +8,17 @@
                     <ol class="breadcrumb mb-0 p-0">
                         <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">PUBLICACIONES DE NOTICIAS</li>
+                        <li class="breadcrumb-item active" aria-current="page">USUARIO</li>
                     </ol>
                 </nav>
             </div>
             <div class="ms-auto">
                 <div class="btn-group">
-                    <a href="{{ route('publicacion') }}" class="btn btn-primary">Nueva publicación</a>
+                    <a href="{{ route('usuario') }}" class="btn btn-primary">Nuevo usuario</a>
                 </div>
             </div>
         </div>
-        <h6 class="mb-0 text-uppercase">Publicaciones</h6>
+        <h6 class="mb-0 text-uppercase">Usuarios</h6>
         <hr>
 
         <div class="card">
@@ -30,12 +30,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Titulo</th>
-                                <th>Imagen</th>
-                                <th>Descripcion</th>
-                                <th>Categoria</th>
-                                <th>Autor</th>
-                                <th>Fuente</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Celular</th>
+                                <th>Email</th>
+                                <th>Usuario</th>
+                                <th>Rol</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -44,45 +44,48 @@
                             @php
                                 $i = 1;
                             @endphp
-                            @foreach ($contenido as $item)
+                            @foreach ($usuarios as $user)
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td>{{ $item->titulo }}</td>
-                                    <td align="center"><img src="{{ asset('storage/publicaciones/' . $item->imagen) }}"
-                                            alt="imagen" width="150px"></td>
-                                    <td>{{ $item->descripcion ? $item->descripcion : '-' }}</td>
-                                    <td>{{ $item->categoria->nombre }}</td>
-                                    <td>{{ $item->autor ? $item->autor : '-' }}</td>
-                                    <td>{{ $item->fuente ? $item->fuente : '-' }}</td>
+                                    <td>{{ $user->nombres }}</td>
+                                    <td>{{ $user->apellidos }}</td>
+                                    <td>{{ $user->celular }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>{{ strtoupper($user->rol->descripcion) }}</td>
                                     <td>
-                                        @if ($item->estado == 1)
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="cat-activo"
-                                                    checked=""
-                                                    onchange="cambiarEstado({{ $item->id_contenido }}, {{ $item->estado }}, 'inactiva')">
-                                                {{-- &nbsp;<label class="form-check-label fw-bold text-success"
+                                        @if ($user->id != 1)
+                                            @if ($user->estado == 1)
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="cat-activo"
+                                                        checked=""
+                                                        onchange="cambiarEstado({{ $user->id }}, {{ $user->estado }}, 'inactiva')">
+                                                    {{-- &nbsp;<label class="form-check-label fw-bold text-success"
                                                     for="cat-activo">ACTIVO</label> --}}
-                                            </div>
+                                                </div>
+                                            @else
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="cat-inactivo"
+                                                        onchange="cambiarEstado({{ $user->id }}, {{ $user->estado }}, 'activa')">
+                                                    {{-- &nbsp;<label class="form-check-label fw-bold text-danger"
+                                                    for="cat-inactivo">INACTIVO</label> --}}
+                                                </div>
+                                            @endif
                                         @else
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" id="cat-inactivo"
-                                                    onchange="cambiarEstado({{ $item->id_contenido }}, {{ $item->estado }}, 'activa')">
-                                                {{-- &nbsp;<label class="form-check-label fw-bold text-danger"
-                                                    for="cat-inactivo">INACTIVO</label> --}}
+                                                <input class="form-check-input" type="checkbox" id="cat-activo"
+                                                    checked="" disabled>
                                             </div>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('contenidoOne', $item->id_contenido) }}"
-                                            class="btn btn-sm btn-primary">
-                                            Ver
-                                        </a>
-                                        <a href="{{ url('admin/publicacion', $item->id_contenido) }}"
-                                            class="btn btn-sm btn-warning">
+                                        <a href="{{ route('usuario', $user->id) }}" class="btn btn-sm btn-warning">
                                             Editar
                                         </a>
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="eliminar({{ $item->id_contenido }})">Eliminar</button>
+                                        @if ($user->id != 1)
+                                            <button class="btn btn-sm btn-danger"
+                                                onclick="eliminar({{ $user->id }})">Eliminar</button>
+                                        @endif
                                     </td>
                                 </tr>
                                 @php
@@ -99,7 +102,7 @@
 
 @section('scripts')
     <script>
-        function eliminar(id_contenido) {
+        function eliminar(id) {
             Swal.fire({
                 title: "Seguro que quiere eliminar la publicación",
                 text: "Esta accion es irreversible",
@@ -113,7 +116,7 @@
                     let token = '{{ csrf_token() }}'
                     let data = {
                         _token: token,
-                        id_contenido: id_contenido
+                        id: id
                     }
 
                     $.ajax({
@@ -138,10 +141,10 @@
             });
         }
 
-        function cambiarEstado(id_contenido, estado, accion) {
+        function cambiarEstado(id, estado, accion) {
             Swal.fire({
-                title: "Seguro que quiere cambiar la visibilidad de la publicación",
-                text: "La visivilidad se hara " + accion,
+                title: "Seguro que quiere inhabilitar al usuario",
+                text: "El estado se hara " + accion,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -152,7 +155,7 @@
                     let token = '{{ csrf_token() }}'
                     let data = {
                         _token: token,
-                        id_contenido: id_contenido,
+                        id: id,
                         estado: estado
                     }
 
@@ -163,7 +166,7 @@
                         success: function() {
                             Swal.fire({
                                 title: "Actualizado",
-                                text: "Visibilidad " + accion + 'da satisfactoriamente.',
+                                text: "Estado " + accion + 'da satisfactoriamente.',
                                 icon: "success",
                                 confirmButtonColor: "#3085d6",
                                 confirmButtonText: "Aceptar"

@@ -14,11 +14,15 @@ class Contenido extends Model
         'titulo',
         'imagen',
         'descripcion',
+        'contenido',
         'estado',
         'creado_el',
         'modificado_el',
         'id_usuario',
         'id_categoria',
+        'autor',
+        'fuente',
+        'vistas',
     ];
     const CREATED_AT = "creado_el";
     const UPDATED_AT = "modificado_el";
@@ -26,6 +30,10 @@ class Contenido extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'id_categoria', 'id_categoria');
+    }
+    public function comentario($id)
+    {
+        return Comentario::where('id_contenido', '=', $id)->get();
     }
 
 }
